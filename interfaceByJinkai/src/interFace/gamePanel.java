@@ -1,0 +1,124 @@
+package interFace;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+ 
+import javax.swing.JPanel;
+
+public class gamePanel extends JPanel implements KeyListener {
+	private int width,height;
+	
+	public gamePanel(int width, int height)
+	{
+		this.width = width;
+		this.height = height;
+		this.setSize(width,height);
+		
+		this.addKeyListener(this);
+		this.setFocusable(true);
+		
+		
+		
+	}
+	
+	private String[] option = new String[] {"ONE PLAYER","TWO PLAYER","SETTING","ABOUT","QUIT"};
+	//where is keyboard stop
+	int index;
+	int[] optionY = new int[]{200,230,260,290,320};
+	int optionX = 400;
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.setColor(Color.blue);
+		g.fillRect(0,0,width,height);
+		//button color change when use
+		for (int i =0;i<option.length;i++)
+		{
+			int x = optionX;
+			int y = optionY[i];
+			
+			if(i==index)
+			{
+				g.setColor(Color.red);
+			}
+			else
+			{
+				g.setColor(Color.yellow);
+				
+			}
+			
+			g.drawString(option[i], x, y);
+			
+			
+		}//for loop end
+		
+		
+	}//paint end
+	
+	public void keyPressed(KeyEvent e)
+	{
+		int keyLocaltion= e.getKeyCode();
+	
+		switch(keyLocaltion)
+		{
+		case KeyEvent.VK_UP: index = (index + option.length - 1) % option.length;
+		this.repaint();
+		break;
+		
+		case KeyEvent.VK_W: index = (index + option.length - 1) % option.length;
+		this.repaint();
+		break;
+		
+		case KeyEvent.VK_DOWN: index = (index + 1) % option.length;
+		this.repaint();
+		break;
+		
+		case KeyEvent.VK_S: index = (index + 1) % option.length;
+		this.repaint();
+		break;
+		
+		case KeyEvent.VK_ENTER:
+			if(index == 4)
+			{
+				System.exit(0);
+			}
+				else
+					{
+					System.out.println(index + " "+ option[index]);
+			        }
+		break;
+		
+		case KeyEvent.VK_ESCAPE:
+			System.exit(0);
+		break;	
+		}
+		
+		
+		
+	}
+	
+	
+	
+	public void keyReleased(KeyEvent e) {
+	}
+ 
+	
+	public void keyTyped(KeyEvent e) {
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}
